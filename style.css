@@ -1,0 +1,1437 @@
+/* ==========================================================================
+   ROMANTIC BIRTHDAY GIFT — DESIGN SYSTEM & STYLES
+   Colors: Soft Pink, Cream, Pure White, Rose Gold
+   Typography: Cormorant Garamond + Plus Jakarta Sans + Sacramento
+   ========================================================================== */
+
+:root {
+    /* Color Palette */
+    --color-bg-start: #fff0f5;
+    --color-bg-mid: #ffe4e9;
+    --color-bg-end: #fffaf6;
+    
+    --color-primary: #ff758f;
+    --color-primary-hover: #ff4d6d;
+    --color-secondary: #c9184a;
+    --color-rose-gold: #e5b382;
+    --color-soft-rose: #ffccd5;
+    
+    --color-text-dark: #4a3b40;
+    --color-text-muted: #8c7078;
+    --color-text-light: #ffffff;
+    
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.7);
+    --glass-shadow: 0 16px 40px rgba(255, 117, 143, 0.12);
+    --card-shadow: 0 12px 30px rgba(201, 24, 74, 0.08);
+
+    /* Fonts */
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-script: 'Sacramento', cursive;
+
+    /* Transitions */
+    --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Base & Reset */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--color-text-dark);
+    background: linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-mid) 50%, var(--color-bg-end) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    line-height: 1.6;
+}
+
+/* Background Particle Canvas */
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Utilities */
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.text-center { text-align: center; }
+.flex-center { display: flex; justify-content: center; align-items: center; }
+
+/* Dynamic Recipient Name Styling */
+.recipient-name {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    color: var(--color-secondary);
+    display: inline-block;
+    position: relative;
+}
+
+.recipient-name::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+    border-radius: 2px;
+}
+
+/* Floating Controls Bar (Top Right) */
+.top-controls {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    display: flex;
+    gap: 0.75rem;
+    z-index: 100;
+}
+
+.control-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: transform 0.3s var(--ease-bounce), background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.control-btn:hover {
+    transform: scale(1.1);
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(255, 117, 143, 0.3);
+}
+
+/* Animated Sound Wave in Music Btn */
+.music-btn {
+    position: relative;
+}
+
+.sound-wave {
+    display: none;
+    align-items: flex-end;
+    gap: 2px;
+    height: 14px;
+    position: absolute;
+    bottom: 8px;
+}
+
+.music-btn.playing .sound-wave {
+    display: flex;
+}
+
+.music-btn.playing .btn-icon {
+    transform: scale(0.8) translateY(-4px);
+}
+
+.sound-wave span {
+    width: 2px;
+    background-color: var(--color-primary);
+    border-radius: 2px;
+    animation: waveBar 1.2s infinite ease-in-out;
+}
+
+.sound-wave span:nth-child(1) { height: 6px; animation-delay: 0.1s; }
+.sound-wave span:nth-child(2) { height: 12px; animation-delay: 0.3s; }
+.sound-wave span:nth-child(3) { height: 8px; animation-delay: 0.2s; }
+
+@keyframes waveBar {
+    0%, 100% { height: 4px; }
+    50% { height: 14px; }
+}
+
+/* ==========================================================================
+   OPENING LANDING OVERLAY
+   ========================================================================== */
+.opening-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #ffffff 0%, var(--color-bg-mid) 60%, var(--color-bg-start) 100%);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    transition: opacity 1s var(--ease-smooth), transform 1s var(--ease-smooth), visibility 1s;
+}
+
+.opening-overlay.fade-out {
+    opacity: 0;
+    transform: scale(1.05);
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Ambient Background Light Orbs */
+.ambient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.orb-1 {
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, #ffccd5 0%, rgba(255, 182, 193, 0) 70%);
+    top: 15%;
+    left: 20%;
+    animation: orbFloat1 10s infinite ease-in-out alternate;
+}
+
+.orb-2 {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, #ffe5ec 0%, rgba(255, 214, 255, 0) 70%);
+    bottom: 15%;
+    right: 20%;
+    animation: orbFloat2 12s infinite ease-in-out alternate;
+}
+
+@keyframes orbFloat1 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(40px, -30px) scale(1.15); }
+}
+
+@keyframes orbFloat2 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-35px, 25px) scale(1.2); }
+}
+
+/* Opening Card Entrance & Floating Animations */
+.opening-card {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    padding: 3.25rem 2.5rem;
+    border-radius: 32px;
+    text-align: center;
+    box-shadow: 0 25px 70px rgba(255, 117, 143, 0.22);
+    max-width: 480px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    animation: openingEntrance 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, openingFloat 6s ease-in-out 1.1s infinite;
+}
+
+@keyframes openingEntrance {
+    0% { opacity: 0; transform: scale(0.85) translateY(30px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes openingFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Badge Heart Animation */
+.opening-heart-badge {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, var(--color-soft-rose), #ffffff);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 10px 25px rgba(255, 117, 143, 0.3);
+    position: relative;
+    animation: heartPulse 2.4s infinite var(--ease-smooth);
+}
+
+.badge-heart {
+    display: inline-block;
+    animation: heartBeat 1.4s infinite ease-in-out;
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.22); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+}
+
+.badge-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 117, 143, 0.35);
+    animation: ringExpand 2.4s infinite ease-out;
+    pointer-events: none;
+}
+
+@keyframes ringExpand {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    100% { transform: scale(1.4); opacity: 0; }
+}
+
+.glow-name {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textGlowPulse 3s infinite alternate ease-in-out;
+}
+
+@keyframes textGlowPulse {
+    0% { filter: drop-shadow(0 0 2px rgba(255, 117, 143, 0.2)); }
+    100% { filter: drop-shadow(0 0 12px rgba(201, 24, 74, 0.45)); }
+}
+
+.opening-title {
+    font-family: var(--font-serif);
+    font-size: 2.25rem;
+    color: var(--color-text-dark);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.opening-subtitle {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    font-family: var(--font-serif);
+    margin-bottom: 2.5rem;
+}
+
+/* Button Wrapper & Pulse Ring */
+.btn-open-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+
+.btn-pulse-ring {
+    position: absolute;
+    inset: -8px;
+    border-radius: 50px;
+    background: rgba(255, 117, 143, 0.25);
+    animation: buttonPulse 2.2s infinite ease-out;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes buttonPulse {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    100% { transform: scale(1.25); opacity: 0; }
+}
+
+/* Glowing Open Button */
+.btn-open {
+    position: relative;
+    z-index: 1;
+    padding: 1.1rem 3.25rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 12px 35px rgba(201, 24, 74, 0.38);
+    transition: all 0.4s var(--ease-bounce);
+    overflow: hidden;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-heart-pulse {
+    display: inline-block;
+    animation: heartBeat 1.4s infinite ease-in-out;
+}
+
+.btn-shimmer {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: skewX(-20deg);
+    animation: buttonShimmer 3.5s infinite linear;
+    pointer-events: none;
+}
+
+@keyframes buttonShimmer {
+    0% { left: -100%; }
+    40%, 100% { left: 160%; }
+}
+
+.btn-open:hover {
+    transform: translateY(-4px) scale(1.06);
+    box-shadow: 0 18px 45px rgba(201, 24, 74, 0.55);
+}
+
+.btn-open:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.btn-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.btn-open:hover .btn-glow {
+    opacity: 1;
+    animation: rotateGlow 4s linear infinite;
+}
+
+@keyframes rotateGlow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.opening-hint {
+    margin-top: 1.75rem;
+    font-size: 0.825rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.3px;
+}
+
+/* ==========================================================================
+   MAIN CONTENT WRAPPER
+   ========================================================================== */
+.main-wrapper {
+    position: relative;
+    z-index: 2;
+    transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.hidden-content {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+.main-wrapper.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.section {
+    padding: 6rem 0;
+    position: relative;
+}
+
+/* ==========================================================================
+   SECTION 1 — BIRTHDAY & INTERACTIVE CAKE
+   ========================================================================== */
+.badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1.25rem;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--color-soft-rose);
+    font-size: 0.875rem;
+    color: var(--color-secondary);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(255, 117, 143, 0.1);
+}
+
+.hero-title {
+    font-family: var(--font-serif);
+    font-size: 3.5rem;
+    line-height: 1.2;
+    color: var(--color-text-dark);
+    margin-bottom: 1.25rem;
+    font-weight: 700;
+}
+
+.hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    font-weight: 400;
+}
+
+/* Romantic Video Section Styling */
+.video-container {
+    margin: 2.5rem auto 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 640px;
+}
+
+.video-card-wrapper {
+    width: 100%;
+    position: relative;
+    border-radius: 28px;
+    padding: 10px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 204, 213, 0.6));
+    box-shadow: 0 20px 50px rgba(255, 117, 143, 0.28);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    transition: transform 0.5s var(--ease-bounce), box-shadow 0.5s ease;
+}
+
+.video-card-wrapper:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 28px 60px rgba(201, 24, 74, 0.35);
+}
+
+.video-glass-frame {
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #000000;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.15);
+}
+
+#anniversaryVideo {
+    width: 100%;
+    height: auto;
+    max-height: 480px;
+    display: block;
+    border-radius: 20px;
+    object-fit: cover;
+    outline: none;
+}
+
+.video-floating-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+    pointer-events: none;
+    animation: badgeFloat 3s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   ROMANTIC MUSIC PLAYER CARD STYLING (BEFORE OUR SWEET JOURNEY)
+   ========================================================================== */
+.music-section {
+    padding: 3rem 0;
+}
+
+.romantic-music-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 20px 50px rgba(255, 117, 143, 0.22);
+    border-radius: 32px;
+    padding: 2.75rem 2.25rem;
+    max-width: 580px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s var(--ease-bounce), box-shadow 0.5s ease;
+}
+
+.romantic-music-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 28px 60px rgba(201, 24, 74, 0.3);
+}
+
+.music-tag-badge {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.music-card-title {
+    font-family: var(--font-serif);
+    font-size: 1.85rem;
+    color: var(--color-text-dark);
+    margin-bottom: 0.35rem;
+}
+
+.music-card-sub {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin-bottom: 2rem;
+}
+
+.music-player-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Spinning Vinyl Disc Accent */
+.vinyl-wrapper {
+    position: relative;
+    width: 110px;
+    height: 110px;
+}
+
+.vinyl-disc {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, #33282b 0%, #1a1215 70%, #000000 100%);
+    border: 4px solid #fff0f5;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s ease;
+}
+
+.vinyl-disc.playing {
+    animation: spinVinyl 5s linear infinite;
+}
+
+@keyframes spinVinyl {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.vinyl-center {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-soft-rose));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+}
+
+/* Player Controls & Seeker */
+.player-controls-wrapper {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.music-time-display {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.progress-container {
+    width: 100%;
+    height: 8px;
+    background: var(--color-soft-rose);
+    border-radius: 50px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    border-radius: 50px;
+    transition: width 0.1s linear;
+}
+
+/* Large Romantic Play Button */
+.main-play-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: #ffffff;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(201, 24, 74, 0.35);
+    transition: all 0.3s var(--ease-bounce);
+    margin-top: 0.5rem;
+}
+
+.main-play-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 14px 35px rgba(201, 24, 74, 0.5);
+}
+
+.main-play-btn:active {
+    transform: scale(0.95);
+}
+
+.play-icon {
+    margin-left: 3px;
+    display: inline-block;
+}
+
+/* ==========================================================================
+   SECTION 2 — PHOTO MEMORIES GALLERY
+   ========================================================================== */
+.section-header {
+    margin-bottom: 3.5rem;
+}
+
+.section-tag {
+    font-family: var(--font-script);
+    font-size: 2rem;
+    color: var(--color-secondary);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.section-title {
+    font-family: var(--font-serif);
+    font-size: 2.75rem;
+    color: var(--color-text-dark);
+    margin-bottom: 0.75rem;
+}
+
+.section-sub {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+/* Photo Card */
+.photo-card {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 1rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.4s var(--ease-bounce), box-shadow 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.photo-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 26px;
+    background: linear-gradient(135deg, rgba(255, 117, 143, 0.7), rgba(229, 179, 130, 0.7), rgba(255, 204, 213, 0.7));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.photo-card:hover::before {
+    opacity: 1;
+}
+
+.photo-card:hover {
+    box-shadow: 0 25px 50px rgba(255, 117, 143, 0.28);
+}
+
+.photo-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--color-bg-mid);
+}
+
+.photo-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s var(--ease-smooth);
+}
+
+.photo-card:hover .photo-wrapper img {
+    transform: scale(1.08);
+}
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(201, 24, 74, 0.2) 0%, transparent 80%);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.4s ease;
+}
+
+.photo-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.zoom-icon {
+    font-size: 1.8rem;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.floating-heart-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(8px);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    animation: badgeFloat 3s infinite ease-in-out;
+}
+
+@keyframes badgeFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(8deg); }
+}
+
+.photo-info {
+    padding: 1.25rem 0.5rem 0.5rem;
+}
+
+.photo-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-primary);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.photo-caption {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    color: var(--color-text-dark);
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   SECTION 3 — INTERACTIVE ENVELOPE & TYPEWRITER MESSAGE
+   ========================================================================== */
+.envelope-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 640px;
+    position: relative;
+    transition: margin-bottom 0.8s var(--ease-bounce), padding-bottom 0.8s ease;
+}
+
+.envelope-container.open {
+    margin-bottom: 240px;
+}
+
+.envelope-wrapper {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    background: linear-gradient(135deg, #fff0f5 0%, #ffe4e9 100%);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(255, 117, 143, 0.25);
+    cursor: pointer;
+    transition: transform 0.8s var(--ease-bounce), box-shadow 0.6s ease;
+    perspective: 800px;
+    margin-top: 2rem;
+}
+
+.envelope-wrapper:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 22px 45px rgba(201, 24, 74, 0.3);
+}
+
+.envelope-wrapper.open {
+    transform: translateY(100px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.envelope-back {
+    position: absolute;
+    inset: 0;
+    background: #ffccd5;
+    border-radius: 20px;
+}
+
+/* Pocket Flaps */
+.envelope-pocket {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, #ffccd5 0%, #fff0f5 100%);
+    clip-path: polygon(0 100%, 50% 40%, 100% 100%);
+    border-radius: 0 0 20px 20px;
+    z-index: 4;
+}
+
+/* Top Triangle Flap */
+.envelope-top-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #ffb3c1 0%, #ffe4e9 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 55%);
+    transform-origin: top center;
+    transition: transform 0.8s var(--ease-bounce), z-index 0.8s ease;
+    z-index: 5;
+    border-radius: 20px 20px 0 0;
+}
+
+.envelope-wrapper.open .envelope-top-flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+/* Wax Seal Badge */
+.wax-seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: #ffffff;
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(201, 24, 74, 0.4);
+    z-index: 6;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.envelope-wrapper:hover .wax-seal {
+    transform: translate(-50%, -20%) scale(1.08);
+}
+
+.envelope-wrapper.open .wax-seal {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -20%) scale(0.5);
+}
+
+/* Letter Card Inside */
+.letter-card {
+    position: absolute;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%) translateY(0) scale(0.95);
+    width: 290px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 28px;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    z-index: 3;
+    opacity: 0;
+    transition: transform 1s var(--ease-bounce), width 0.8s ease, opacity 0.8s ease, z-index 0.5s ease;
+    pointer-events: none;
+}
+
+.envelope-wrapper.open .letter-card {
+    transform: translateX(-50%) translateY(-270px) scale(1);
+    width: 90vw;
+    max-width: 540px;
+    opacity: 1;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+.card-sparkles {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    display: flex;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.card-heart-icon {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    color: var(--color-primary);
+    margin-bottom: 1.25rem;
+}
+
+.sweet-quote {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    line-height: 1.8;
+    color: var(--color-text-dark);
+    font-style: italic;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    min-height: 120px;
+}
+
+/* Typewriter & Quote Styling */
+.typewriter-cursor {
+    display: inline-block;
+    color: var(--color-primary);
+    font-weight: 300;
+    animation: blinkCursor 0.8s infinite ease-in-out;
+    margin-left: 2px;
+}
+
+@keyframes blinkCursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.card-signature {
+    border-top: 1px solid rgba(255, 117, 143, 0.2);
+    padding-top: 1.5rem;
+}
+
+.card-signature.hidden {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.card-signature.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.with-love {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.signature-name {
+    font-family: var(--font-script);
+    font-size: 2rem;
+    color: var(--color-secondary);
+}
+
+.envelope-hint {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    transition: opacity 0.4s ease;
+}
+
+/* ==========================================================================
+   SECTION 4 — ENDING & CELEBRATION
+   ========================================================================== */
+.ending-section {
+    padding-bottom: 4rem;
+}
+
+.ending-heart-glow {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    animation: pulseHeart 2s infinite ease-in-out;
+}
+
+@keyframes pulseHeart {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255,117,143,0.3)); }
+    50% { transform: scale(1.15); filter: drop-shadow(0 0 25px rgba(201,24,74,0.6)); }
+}
+
+.ending-title {
+    font-family: var(--font-serif);
+    font-size: 3.5rem;
+    color: var(--color-text-dark);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.glow-text {
+    text-shadow: 0 0 20px rgba(255, 117, 143, 0.4);
+}
+
+.ending-subtitle {
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+}
+
+.ending-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 0.9rem 2.25rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-bounce);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 8px 25px rgba(201, 24, 74, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 12px 30px rgba(201, 24, 74, 0.45);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--color-secondary);
+    border: 1px solid var(--color-soft-rose);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-3px) scale(1.04);
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(255, 117, 143, 0.2);
+}
+
+.footer-note {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   SCROLL REVEAL ANIMATIONS
+   ========================================================================== */
+.reveal-fade, .reveal-scale, .reveal-card {
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s var(--ease-smooth);
+}
+
+.reveal-fade { transform: translateY(30px); }
+.reveal-scale { transform: scale(0.92); }
+.reveal-card { transform: translateY(40px); }
+
+.reveal-active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* ==========================================================================
+   MODAL WINDOWS
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 1rem;
+    max-width: 90vw;
+    max-height: 85vh;
+    position: relative;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-content img {
+    max-width: 100%;
+    max-height: 70vh;
+    border-radius: 16px;
+    object-fit: contain;
+}
+
+.modal-caption {
+    margin-top: 1rem;
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: var(--color-text-dark);
+}
+
+.modal-close {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 38px;
+    height: 38px;
+    background: #ffffff;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+.modal-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 28px;
+    padding: 2.5rem;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.modal-card h3 {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-dark);
+}
+
+.modal-card p {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.modal-card input {
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    border-radius: 50px;
+    border: 1px solid var(--color-soft-rose);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    outline: none;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    transition: border 0.3s ease;
+}
+
+.modal-card input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(255, 117, 143, 0.2);
+}
+
+/* Responsive Rules */
+@media (max-width: 768px) {
+    .hero-title { font-size: 2.6rem; }
+    .opening-title { font-size: 1.85rem; }
+    .section-title { font-size: 2.2rem; }
+    .ending-title { font-size: 2.5rem; }
+    .sweet-quote { font-size: 1.35rem; }
+    .glass-card { padding: 3rem 1.5rem; }
+    .top-controls { top: 1rem; right: 1rem; }
+    .section { padding: 4.5rem 0; }
+}
+
+@media (max-width: 480px) {
+    .hero-title { font-size: 2.1rem; }
+    .opening-card { padding: 2.25rem 1.5rem; }
+    .btn-open { padding: 0.85rem 2.25rem; font-size: 1rem; }
+    .cake-wrapper { transform: scale(0.9); }
+    .envelope-container.open { margin-bottom: 260px; }
+    .letter-card { padding: 2.25rem 1.5rem; }
+    .sweet-quote { font-size: 1.25rem; }
+}
+
+/* ==========================================================================
+   BLOOMING FLOWER ANIMATIONS & STYLING
+   ========================================================================== */
+.card-blooming-flower {
+    position: absolute;
+    bottom: -18px;
+    width: 90px;
+    height: 108px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.card-blooming-flower.flower-left {
+    left: -40px;
+    transform: rotate(-15deg);
+}
+
+.card-blooming-flower.flower-right {
+    right: -40px;
+    transform: rotate(15deg) scaleX(-1);
+}
+
+.svg-bloom {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    filter: drop-shadow(0 8px 16px rgba(255, 117, 143, 0.25));
+}
+
+.svg-bloom .stem {
+    transform-origin: bottom center;
+    animation: stemGrow 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.svg-bloom .leaf {
+    transform-origin: center;
+    animation: leafGrow 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
+}
+
+.svg-bloom .flower-petals-group {
+    transform-origin: 50px 45px;
+    animation: flowerGroupBloom 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s both;
+}
+
+.svg-bloom .petal-outer,
+.svg-bloom .petal-inner {
+    transform-origin: 50px 45px;
+    animation: petalUnfold 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.svg-bloom .p-1 { animation-delay: 0.7s; }
+.svg-bloom .p-2 { animation-delay: 0.82s; }
+.svg-bloom .p-3 { animation-delay: 0.94s; }
+.svg-bloom .p-4 { animation-delay: 1.06s; }
+.svg-bloom .p-5 { animation-delay: 1.18s; }
+.svg-bloom .p-6 { animation-delay: 1.3s; }
+.svg-bloom .p-7 { animation-delay: 1.42s; }
+.svg-bloom .p-8 { animation-delay: 1.54s; }
+.svg-bloom .p-9 { animation-delay: 1.66s; }
+
+.svg-bloom .core {
+    transform-origin: 50px 45px;
+    animation: coreGlow 1s ease-out 1.75s both, corePulse 2.5s infinite ease-in-out 2.75s;
+}
+
+@keyframes stemGrow {
+    0% { transform: scaleY(0); opacity: 0; }
+    100% { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes leafGrow {
+    0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes flowerGroupBloom {
+    0% { transform: scale(0) rotate(-45deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes petalUnfold {
+    0% { transform: scale(0.1) rotate(-15deg); opacity: 0; }
+    60% { transform: scale(1.15) rotate(5deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes coreGlow {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes corePulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px #ffb703); }
+    50% { transform: scale(1.25); filter: drop-shadow(0 0 10px #ffb703); }
+}
+

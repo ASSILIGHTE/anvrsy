@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Anniversary, Sayang 🤍</title>
+    <meta name="description"
+        content="Sebuah ucapan anniversary spesial yang penuh kehangatan, cinta, dan kenangan indah bersama.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sacramento&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background Particle Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Floating Top Controls Bar -->
+    <div class="top-controls">
+        <button id="musicToggle" class="control-btn music-btn" aria-label="Toggle Music"
+            title="Putar / Heningkan Musik">
+            <span class="btn-icon">🎵</span>
+            <span class="sound-wave">
+                <span></span><span></span><span></span>
+            </span>
+        </button>
+    </div>
+
+    <!-- Opening Landing Screen Overlay -->
+    <div id="opening" class="opening-overlay">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+
+        <div class="opening-card">
+            <div class="opening-heart-badge">
+                <span class="badge-heart">🤍</span>
+                <span class="badge-ring"></span>
+            </div>
+            <h1 class="opening-title">Happy Anniversary,<br><span class="recipient-name glow-name">Sayang</span> 🤍</h1>
+            <p class="opening-subtitle">Terima kasih telah menemani setiap langkahku.</p>
+
+            <div class="btn-open-wrapper">
+                <div class="btn-pulse-ring"></div>
+                <button id="btnOpen" class="btn-open">
+                    <span class="btn-text">Open <span class="btn-heart-pulse">♡</span></span>
+                    <span class="btn-shimmer"></span>
+                    <span class="btn-glow"></span>
+                </button>
+            </div>
+
+            <!-- Blooming SVG Flowers Decorative Framing -->
+            <div class="card-blooming-flower flower-left">
+                <svg viewBox="0 0 100 120" class="svg-bloom">
+                    <path class="stem" d="M50 120 Q35 85 50 45" fill="none" stroke="#8cb369" stroke-width="4" stroke-linecap="round"/>
+                    <path class="leaf leaf-1" d="M44 95 Q20 85 18 100 Q35 105 44 95" fill="#a3b18a"/>
+                    <path class="leaf leaf-2" d="M52 80 Q75 70 78 85 Q60 90 52 80" fill="#a3b18a"/>
+                    <g class="flower-petals-group">
+                        <path class="petal-outer p-1" d="M50 45 C30 10, 70 10, 50 45" fill="#ff758f"/>
+                        <path class="petal-outer p-2" d="M50 45 C85 20, 95 55, 50 45" fill="#ff4d6d"/>
+                        <path class="petal-outer p-3" d="M50 45 C80 80, 45 90, 50 45" fill="#c9184a"/>
+                        <path class="petal-outer p-4" d="M50 45 C15 80, 10 50, 50 45" fill="#ff4d6d"/>
+                        <path class="petal-outer p-5" d="M50 45 C10 20, 45 10, 50 45" fill="#ff758f"/>
+                        <path class="petal-inner p-6" d="M50 45 C38 22, 62 22, 50 45" fill="#ffb3c1"/>
+                        <path class="petal-inner p-7" d="M50 45 C70 32, 70 58, 50 45" fill="#ff8fa3"/>
+                        <path class="petal-inner p-8" d="M50 45 C40 65, 60 65, 50 45" fill="#ffb3c1"/>
+                        <path class="petal-inner p-9" d="M50 45 C30 32, 30 58, 50 45" fill="#ff8fa3"/>
+                        <circle class="core" cx="50" cy="45" r="7" fill="#ffe066" stroke="#ffb703" stroke-width="2"/>
+                    </g>
+                </svg>
+            </div>
+            <div class="card-blooming-flower flower-right">
+                <svg viewBox="0 0 100 120" class="svg-bloom">
+                    <path class="stem" d="M50 120 Q65 85 50 45" fill="none" stroke="#8cb369" stroke-width="4" stroke-linecap="round"/>
+                    <path class="leaf leaf-1" d="M54 95 Q80 85 82 100 Q65 105 54 95" fill="#a3b18a"/>
+                    <path class="leaf leaf-2" d="M48 80 Q25 70 22 85 Q40 90 48 80" fill="#a3b18a"/>
+                    <g class="flower-petals-group">
+                        <path class="petal-outer p-1" d="M50 45 C30 10, 70 10, 50 45" fill="#ff758f"/>
+                        <path class="petal-outer p-2" d="M50 45 C85 20, 95 55, 50 45" fill="#ff4d6d"/>
+                        <path class="petal-outer p-3" d="M50 45 C80 80, 45 90, 50 45" fill="#c9184a"/>
+                        <path class="petal-outer p-4" d="M50 45 C15 80, 10 50, 50 45" fill="#ff4d6d"/>
+                        <path class="petal-outer p-5" d="M50 45 C10 20, 45 10, 50 45" fill="#ff758f"/>
+                        <path class="petal-inner p-6" d="M50 45 C38 22, 62 22, 50 45" fill="#ffb3c1"/>
+                        <path class="petal-inner p-7" d="M50 45 C70 32, 70 58, 50 45" fill="#ff8fa3"/>
+                        <path class="petal-inner p-8" d="M50 45 C40 65, 60 65, 50 45" fill="#ffb3c1"/>
+                        <path class="petal-inner p-9" d="M50 45 C30 32, 30 58, 50 45" fill="#ff8fa3"/>
+                        <circle class="core" cx="50" cy="45" r="7" fill="#ffe066" stroke="#ffb703" stroke-width="2"/>
+                    </g>
+                </svg>
+            </div>
+
+            <p class="opening-hint">Dibuat khusus dengan seluruh cintaku ✨</p>
+        </div>
+    </div>
+
+    <!-- Main Web Content Container -->
+    <div id="mainContent" class="main-wrapper hidden-content">
+
+        <!-- SECTION 1: Anniversary Header & Interactive Cake -->
+        <section id="birthday" class="section birthday-section">
+            <div class="container text-center">
+                <div class="badge-pill">
+                    <span class="star-icon">✨</span> Happy Anniversary <span class="star-icon">✨</span>
+                </div>
+
+                <h1 class="hero-title reveal-fade">
+                    Happy Anniversary,<br>
+                    <span class="recipient-name highlight-text">Sayang</span> ♡
+                </h1>
+
+                <p class="hero-subtitle reveal-fade">
+                    Terima kasih telah hadir dan melengkapi hidupku. Semoga perjalanan cinta kita selalu dipenuhi
+                    kehangatan, kebahagiaan, dan rasa saling mengasihi selamanya.
+                </p>
+
+                <!-- Romantic Video Section -->
+                <div class="video-container reveal-scale">
+                    <div class="video-card-wrapper">
+                        <div class="video-glass-frame">
+                            <video id="anniversaryVideo" controls playsinline loop autoplay muted preload="auto">
+                                <source src="./public/1.mp4" type="video/mp4">
+                                <source src="./1.mp4" type="video/mp4">
+                                Browser kamu tidak mendukung pemutaran video.
+                            </video>
+                            <div class="video-floating-badge">💖 Video Spesial Kita ♡</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEDICATED MUSIC PLAYER SECTION -->
+        <section id="music-player-section" class="section music-section text-center">
+            <div class="container reveal-scale flex-center">
+                <div class="romantic-music-card">
+                    <div class="music-card-header">
+                        <span class="music-tag-badge">🎵 Romantic Melodies 🎵</span>
+                        <h3 class="music-card-title">Lagu Spesial Perjalanan Cinta Kita ♡</h3>
+                        <p class="music-card-sub">Putar musik untuk mengiringi setiap momen kenangan indah ini</p>
+                    </div>
+
+                    <div class="music-player-body">
+                        <!-- Spinning Vinyl Record Accent -->
+                        <div class="vinyl-wrapper" id="vinylWrapper">
+                            <div class="vinyl-disc" id="vinylDisc">
+                                <div class="vinyl-center">🌸</div>
+                            </div>
+                        </div>
+
+                        <!-- Player Controls -->
+                        <div class="player-controls-wrapper">
+                            <div class="music-time-display">
+                                <span id="currentTime">0:00</span>
+                                <span id="durationTime">0:00</span>
+                            </div>
+
+                            <div class="progress-container" id="progressContainer">
+                                <div class="progress-bar" id="progressBar"></div>
+                            </div>
+
+                            <button id="mainPlayBtn" class="main-play-btn" aria-label="Play Music" title="Putar / Hentikan Musik">
+                                <span class="play-icon" id="playIcon">▶</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Photo Memories -->
+        <section id="memories" class="section memories-section">
+            <div class="container">
+                <div class="section-header text-center reveal-fade">
+                    <span class="section-tag">Our Sweet Journey</span>
+                    <h2 class="section-title">Kenangan Indah Perjalanan Cinta Kita ♡</h2>
+                    <p class="section-sub">Setiap detik bersamamu adalah cerita terbaik yang ingin kukenang selamanya.
+                    </p>
+                </div>
+
+                <div class="gallery-grid">
+                    <!-- Photo 1 -->
+                    <div class="photo-card reveal-card" data-index="1">
+                        <div class="photo-wrapper">
+                            <img src="./public/photo1.jpg" alt="Memory Photo 1" loading="lazy">
+                            <div class="card-overlay">
+                                <span class="zoom-icon">🔍</span>
+                            </div>
+                            <div class="floating-heart-badge">💖</div>
+                        </div>
+                        <div class="photo-info">
+                            <span class="photo-tag">Moment #1</span>
+                            <h3 class="photo-caption">Awal Cerita Indah Kita</h3>
+                        </div>
+                    </div>
+
+                    <!-- Photo 2 -->
+                    <div class="photo-card reveal-card" data-index="2">
+                        <div class="photo-wrapper">
+                            <img src="./public/photo2.jpg" alt="Memory Photo 2" loading="lazy">
+                            <div class="card-overlay">
+                                <span class="zoom-icon">🔍</span>
+                            </div>
+                            <div class="floating-heart-badge">🌸</div>
+                        </div>
+                        <div class="photo-info">
+                            <span class="photo-tag">Moment #2</span>
+                            <h3 class="photo-caption">Hari-Hari Penuh Tawa & Kebahagiaan</h3>
+                        </div>
+                    </div>
+
+                    <!-- Photo 3 -->
+                    <div class="photo-card reveal-card" data-index="3">
+                        <div class="photo-wrapper">
+                            <img src="./public/photo3.jpg" alt="Memory Photo 3" loading="lazy">
+                            <div class="card-overlay">
+                                <span class="zoom-icon">🔍</span>
+                            </div>
+                            <div class="floating-heart-badge">✨</div>
+                        </div>
+                        <div class="photo-info">
+                            <span class="photo-tag">Moment #3</span>
+                            <h3 class="photo-caption">Setiap Sudut yang Kita Lewati Bersama</h3>
+                        </div>
+                    </div>
+
+                    <!-- Photo 4 -->
+                    <div class="photo-card reveal-card" data-index="4">
+                        <div class="photo-wrapper">
+                            <img src="./public/photo4.jpg" alt="Memory Photo 4" loading="lazy">
+                            <div class="card-overlay">
+                                <span class="zoom-icon">🔍</span>
+                            </div>
+                            <div class="floating-heart-badge">💫</div>
+                        </div>
+                        <div class="photo-info">
+                            <span class="photo-tag">Moment #4</span>
+                            <h3 class="photo-caption">Kedamaian dalam Setiap Langkah</h3>
+                        </div>
+                    </div>
+
+                    <!-- Photo 5 -->
+                    <div class="photo-card reveal-card" data-index="5">
+                        <div class="photo-wrapper">
+                            <img src="./public/photo5.jpg" alt="Memory Photo 5" loading="lazy">
+                            <div class="card-overlay">
+                                <span class="zoom-icon">🔍</span>
+                            </div>
+                            <div class="floating-heart-badge">🤍</div>
+                        </div>
+                        <div class="photo-info">
+                            <span class="photo-tag">Moment #5</span>
+                            <h3 class="photo-caption">Selalu Ada untuk Satu Sama Lain</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Sweet Message (Interactive Envelope) -->
+        <section id="sweet-message" class="section message-section">
+            <div class="container flex-center">
+                <div class="envelope-container reveal-scale">
+
+                    <div class="envelope-wrapper" id="envelopeWrapper">
+                        <div class="envelope-back"></div>
+
+                        <!-- Letter Card inside -->
+                        <div class="letter-card" id="letterCard">
+                            <div class="card-sparkles">
+                                <span>✨</span><span>🌸</span><span>🤍</span>
+                            </div>
+
+                            <div class="card-heart-icon">
+                                <span>♡</span>
+                            </div>
+
+                            <blockquote class="sweet-quote" id="typewriterText">
+                                <!-- Text typed dynamically via JS -->
+                            </blockquote>
+
+                            <div class="card-signature hidden" id="cardSignature">
+                                <p class="with-love">Dengan Seluruh Cintaku,</p>
+                                <p class="signature-name">Untukmu, Hari Ini &<br>Selamanya ✨</p>
+                            </div>
+                        </div>
+
+                        <!-- Envelope Front Flaps -->
+                        <div class="envelope-pocket"></div>
+                        <div class="envelope-top-flap" id="envelopeTop"></div>
+
+                        <!-- Wax Seal Button -->
+                        <div class="wax-seal" id="waxSeal">
+                            <span class="seal-icon">💌</span>
+                            <span class="seal-text">Buka Surat Cinta ♡</span>
+                        </div>
+                    </div>
+
+                    <p class="envelope-hint" id="envelopeHint">Klik amplop untuk membaca surat anniversary spesial ♡</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Ending -->
+        <section id="ending" class="section ending-section text-center">
+            <div class="container reveal-fade">
+                <div class="ending-heart-glow">
+                    <span>🤍</span>
+                </div>
+                <h2 class="ending-title glow-text">Happy Anniversary, My Love ♡</h2>
+                <p class="ending-subtitle">Terima kasih untuk setiap kenangan manis dan senyuman indah yang kau berikan setiap hari.</p>
+
+                <div class="ending-actions">
+                    <button id="btnRelive" class="btn-secondary">
+                        <span>Putar Video Lagi 🎥</span>
+                    </button>
+                    <button id="btnShowerHearts" class="btn-primary">
+                        <span>Kirim Cinta ♡</span>
+                    </button>
+                </div>
+
+                <footer class="footer-note">
+                    <p>Made with endless love for <span class="recipient-name">Sayang</span> ✨</p>
+                </footer>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Hidden HTML5 Audio Element -->
+    <audio id="bgMusic" src="./public/music.mp3" loop preload="auto"></audio>
+
+    <!-- Modal: Lightbox Photo Preview -->
+    <div id="photoModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button id="closeModal" class="modal-close">&times;</button>
+            <img id="modalImg" src="" alt="Full Preview">
+            <p id="modalCaption" class="modal-caption"></p>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>
